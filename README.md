@@ -9,7 +9,7 @@ project managers to notify them to show these leads some ❤️.
 ### Details
 The script utilizes the O365 API (details here: [https://pypi.org/project/O365/](https://pypi.org/project/O365/))
 which allows it to send emails via Outlook seamlessly.
-The pyodbc library is also used to connect to EPIC's SQL Server-based 
+The pyodbc library is also used to connect to a SQL Server-based 
 backend so that data can be retreived.
 
 #### Important note from the O365 API
