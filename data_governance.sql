@@ -4,8 +4,7 @@ SELECT sla.SalesLeadId,
 	   sl.active_current,
 	   li.CompanyName,
 	   li.Project,
-	   li.CommercialOwner,
-	   SUBSTRING(li.NameFirst, 1, 1) + li.NameLast + '@epicsysinc.com' AS email
+	   li.CommercialOwner
 FROM crm.SalesLeadAudit sla
 LEFT JOIN
 (SELECT IsActive AS active_current, 
