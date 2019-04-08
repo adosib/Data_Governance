@@ -38,9 +38,11 @@ for owner in owners:
     email = name[0][0] + name[1] + '@epicsysinc.com'
     for row in data.itertuples():
         if owner == row.CommercialOwner:
-            leads += (str(row.SalesLeadId) + 
-                    " with project name '{}' for {} <br>".format(row.Project.strip(), 
-                                                                    row.CompanyName.strip())+"\n")
+            leads += ("<a href= https://secure.epicsysinc.com/SalesLead/Edit.aspx?id=" + 
+                      str(row.SalesLeadId) + ">" + 
+                      str(row.SalesLeadId) + "</a>" +
+                      " with project name '{}' for {} <br>".format(row.Project.strip(), 
+                                                                   row.CompanyName.strip())+"\n")
     intro = "Hey " + name[0] +",\n\n"
     leads = "I am showing you as the owner of the following leads:<br>\n<br>\n {}".format(leads)
     ask = "\nWould you please go update these in the SLT? "
@@ -57,7 +59,7 @@ for owner in owners:
                     """
 
     message = mailbox.new_message()
-    message.to.add([email])
+    message.to.add(['asibalo@epicsysinc.com'])
     message.sender.address = 'asibalo@epicsysinc.com'
     message.subject = 'Reminder to Update SLT'
     message.body = html_template.format(intro, leads, ask, close)
