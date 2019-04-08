@@ -5,13 +5,13 @@ SELECT DISTINCT
 	   li.Project,
 	   sl.active_current,
 	   sla.AuditDate,
-	   DATEDIFF(DAY, sla.AuditDate, GETDATE()) AS days_since_audit,
+	   DATEDIFF(DAY, sla.AuditDate, GETDATE()) AS days_audit,
 	   probs.ProbAuditDate,
-	   probs.days_since_prob_update,
+	   probs.days_prob,
 	   sln.CreateDate LastNoteCreatedDate,
-	   sln.days_since_last_note,
+	   sln.days_note,
 	   commStage.AuditDate LastCommStageAudit,
-	   commStage.days_since_commStage_update
+	   commStage.days_commercial
 FROM crm.SalesLeadAudit sla
 LEFT JOIN
 (SELECT IsActive AS active_current, 
@@ -31,7 +31,7 @@ ON li.SalesLeadId = sla.SalesLeadId
 LEFT JOIN
 (SELECT SalesLeadId, 
 		CreateDate, 
-		DATEDIFF(DAY, CreateDate, GETDATE()) AS days_since_last_note
+		DATEDIFF(DAY, CreateDate, GETDATE()) AS days_note
 FROM crm.SalesLeadNote sln
 WHERE CreateDate = (SELECT MAX(sln1.CreateDate) 
 					FROM crm.SalesLeadNote sln1 
@@ -40,7 +40,7 @@ ON sln.SalesLeadId = sla.SalesLeadId
 LEFT JOIN
 (SELECT slcsa.SalesLeadId, 
 		slcsa.AuditDate, 
-		DATEDIFF(DAY, AuditDate, GETDATE()) AS days_since_commStage_update,
+		DATEDIFF(DAY, AuditDate, GETDATE()) AS days_commercial,
 		IsDone
 FROM crm.SalesLeadCommercialStageAudit slcsa
 WHERE AuditDate = (SELECT MAX(slcsa1.AuditDate) 
@@ -51,7 +51,7 @@ ON commStage.SalesLeadId = sla.SalesLeadId
 LEFT JOIN
 (SELECT SalesLeadId, 
 	   AuditDate ProbAuditDate,
-	   DATEDIFF(DAY, AuditDate, GETDATE()) AS days_since_prob_update
+	   DATEDIFF(DAY, AuditDate, GETDATE()) AS days_prob
 FROM crm.SalesLeadProbabilityAnswerAudit slpa
 WHERE AuditDate = (SELECT MAX(slpa1.AuditDate) 
 				   FROM crm.SalesLeadProbabilityAnswerAudit slpa1
@@ -64,5 +64,5 @@ sla.AuditDate = (SELECT MAX(sla1.AuditDate)
 sl.active_current = 1 AND
 sl.deleted_current = 0
 ORDER BY sla.AuditDate DESC,
-         days_since_audit DESC
+         days_audit DESC
 GO
