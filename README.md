@@ -16,6 +16,9 @@ The script utilizes the O365 API (details here: [https://pypi.org/project/O365/]
 which allows it to send emails via Outlook seamlessly.
 The pyodbc library is also used to connect to a SQL Server-based 
 backend so that data can be retreived.
+### Example Output
+This is an example of an email that is generated and sent out to a project manager:
+![Email](https://github.com/adosib/Data_Governance/blob/master/example/example_out.PNG)
 
 #### Important note from the O365 API
 If your application needs to work for more than 90 days without 
