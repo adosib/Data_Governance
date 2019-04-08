@@ -25,7 +25,10 @@ with open('data_governance.sql', 'r') as dg:
 
 # Execute the query and read the returned table into a Pandas data frame
 data = pd.io.sql.read_sql(sqlQuery, conn)
+# Write the data to a csv
+data.to_csv("SLT_update.csv")
 
+# The unique commercial owners
 owners = set(data['CommercialOwner'])
 
 for owner in owners:
@@ -41,7 +44,7 @@ for owner in owners:
     leads = "I am showing you as the owner of the following leads:<br>\n<br>\n {}".format(leads)
     ask = "\nWould you please go update these in the SLT? "
     close = "According to the database, these leads have not been updated in at least a month."
-    html_template =  """ 
+    html_template = """ 
                         <html>
                         <body>
                                 <p>{}</p>
@@ -52,7 +55,6 @@ for owner in owners:
                         </html>
                     """
 
-    #send = pd.DataFrame(prototype.split(sep = '\n')[::])
     message = mailbox.new_message()
     message.to.add([email])
     message.sender.address = 'asibalo@epicsysinc.com'  # changing the from address
