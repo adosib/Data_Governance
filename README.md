@@ -1,7 +1,12 @@
-## Data Governance
+# Project Notes
+This is a project aimed at improving data governance and ownership practices at EPIC Systems, Inc.
+At the time of this writing, EPIC employs me as a data analyst intern.
+Unfortunately, the data are proprietary, but the scripts for this analysis can be found here.
+
+## data_governance.sql
 This SQL query returns a table of sales leads which have not been updated in at least a month.
 
-## Emailer
+## emailer.py
 This is a script that serves as a friendly reminder to project managers to 
 update their sales leads. The script grabs leads from the back-end that haven't
 been updated in over a month via a SQL query and then emails the respective 
