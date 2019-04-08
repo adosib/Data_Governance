@@ -31,6 +31,7 @@ data.to_csv("SLT_update.csv")
 # The unique commercial owners
 owners = set(data['CommercialOwner'])
 
+# Send an email to each project manager with sales leads that need to be updated in the SLT
 for owner in owners:
     leads = "\n"
     name = owner.split(sep = ' ')
@@ -57,7 +58,7 @@ for owner in owners:
 
     message = mailbox.new_message()
     message.to.add([email])
-    message.sender.address = 'asibalo@epicsysinc.com'  # changing the from address
+    message.sender.address = 'asibalo@epicsysinc.com'
     message.subject = 'Reminder to Update SLT'
     message.body = html_template.format(intro, leads, ask, close)
     message.send() 
