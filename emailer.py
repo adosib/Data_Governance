@@ -59,7 +59,7 @@ for owner in owners:
                     """
 
     message = mailbox.new_message()
-    message.to.add(['asibalo@epicsysinc.com'])
+    message.to.add([email])
     message.sender.address = 'asibalo@epicsysinc.com'
     message.subject = 'Reminder to Update SLT'
     message.body = html_template.format(intro, leads, ask, close)
